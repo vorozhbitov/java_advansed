@@ -1,18 +1,29 @@
 package new_calculator;
 
+import java.util.Scanner;
+
 /**
  * @author Roman Vorozhbitov
  * @version 1.0.0
  */
 public class NewCalc {
     public static void main(String[] args) {
-        Calculator calculator = new Calculator();
+        Scanner scanner = new Scanner(System.in);
 
-        calculator.setValues(15.11, 2.2353, '/');
+        System.out.print("Введите первое число: ");
+        double num1 = scanner.nextDouble();
 
-        double result = calculator.calculate();
+        System.out.print("Введите второе число: ");
+        double num2 = scanner.nextDouble();
 
-        System.out.printf("Результат операции: %.4f%n", result);
+        System.out.print("Введите оператор (+, -, *, /):");
+        char op = scanner.next().charAt(0);
+
+        Calculator calculator = new Calculator(num1, num2, op);
+
+        System.out.printf("Результат операции: %.4f%n", calculator.getResult());
+
+        scanner.close();
 
     }
 }
