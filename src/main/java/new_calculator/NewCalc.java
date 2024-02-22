@@ -1,5 +1,6 @@
 package new_calculator;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -26,7 +27,9 @@ public class NewCalc {
 
         Calculator calculator = new Calculator(num1, num2, op);
 
-        System.out.printf("Результат операции: %.4f%n", calculator.getResult());
+        double res = calculator.getResult();
+
+        System.out.printf("Результат операции: %.4f%n", res);
 
         scanner.close();
 

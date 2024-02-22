@@ -10,38 +10,50 @@ public class Calculator {
     private char operator;
     private double result;
 
-    public Calculator(double number1, double number2, char operator) throws ValueOutOfRangeException {
+    public Calculator(double number1, double number2, char operator) {
         this.number1 = number1;
         this.number2 = number2;
         this.operator = operator;
-        this.result = calculate();
+        try {
+            this.result = calculate();
+        } catch (ArithmeticException | IllegalArgumentException | ValueOutOfRangeException e) {
+            this.result = 0.0;
+            System.out.println("Ошибка: " + e.getMessage());
+        }
     }
 
-    private double calculate() throws ValueOutOfRangeException {
+    public double calculate() throws ValueOutOfRangeException {
+        double calcResult = 0.0;
         switch (operator) {
             case '+':
-                return number1 + number2;
+                calcResult = number1 + number2;
+                break;
             case '-':
-                return number1 - number2;
+                calcResult = number1 - number2;
+                break;
             case '*':
-                return number1 * number2;
+                calcResult = number1 * number2;
+                break;
             case '/':
                 if (number2 == 0) {
-                    throw new ArithmeticException("Деление на ноль");
+                    throw new ArithmeticException("Деление на 0 недопустимо");
                 }
-                return number1 / number2;
+                calcResult = number1 / number2;
+                break;
             case '^':
-                double powResult = Math.pow(number1, number2);
-                if (powResult > Double.MAX_VALUE) {
+                calcResult = Math.pow(number1, number2);
+                if (calcResult > Double.MAX_VALUE) {
                     throw new ValueOutOfRangeException("Результат больше чем максимальный для типа double");
                 }
-                return powResult;
+                break;
             default:
-                throw new IllegalArgumentException("Неверный символ операции");
+                throw new IllegalArgumentException("Неверный оператор");
         }
+        return calcResult;
     }
 
     public double getResult() {
         return result;
     }
+
 }
